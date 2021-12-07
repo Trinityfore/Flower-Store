@@ -26,7 +26,10 @@ app.use(express.urlencoded({ extended: false}));
 
 //index route
 app.get('/flowers', (req,res) => {
-    res.send('here is a flower')
+    Product.find({}, (err,flower)=> {
+        res.render('index.ejs', { flower })   
+    })
+    
 })
 
 //new route
@@ -34,6 +37,21 @@ app.get('/flowers/new', (req,res)=> {
     res.render('new.ejs')
 })
 
+
+//edit route
+app.get('/flowers/:id', (req,res) => {
+    Product.findById(req.params.id, (err,item) =>{
+        res.render('show.ejs', { item })
+    })
+})
+
+//show route
+
+app.get('/flowers/:id', (req,res)=> {
+    Product.findById(req.params.id,(err,item)=> {
+        res.render('show.ejs', { item })
+    })
+})
 
 
 

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unique Flowers</title>
+</head>
+<body>
+    <ul>
+        <% flower.forEach((flower)=> {%>
+            <li><a href='/flowers/<%='flower._id%>'><%=flower.img%></a>
+                <form action='/flowers/<%=flower._id%>?_method=delete' method='post'>
+                    <button type="submit">delete</button>
+                </form>
+                <a href='/flowers/<%=flower._id%>/edit'>edit</a>
+            </li>
+        <% }) %>
+    </ul>
+    <a href='/flowers/new'>Add Flower</a>
+</body>
+</html>
