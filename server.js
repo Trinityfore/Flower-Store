@@ -38,8 +38,21 @@ app.get('/flowers/new', (req,res)=> {
 })
 
 //delete route
-
-//update toute
+app.delete('/flowers/:id', (req,res)=> {
+    Product.findByIdAndDelete(req.params.id, (err,delted)=>{
+        res.redirect('/flowers')
+    })
+})
+//update route
+app.put('/flowers/:id',(req,res)=> {
+    Product.findByIdAndUpdate(req.params.id,req.body, { new: true },(err,updated)=>{
+        if(err){
+            res.send('error')
+        } else {
+            res.redirect('/flowers')
+        }
+    })
+})
 
 //create route
 app.post('/flowers', (req,res)=> {
@@ -67,7 +80,6 @@ app.get('/flowers/:id', (req,res)=> {
     })
 })
 
-//
 
 const PORT = process.env.PORT
 
