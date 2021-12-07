@@ -37,6 +37,20 @@ app.get('/flowers/new', (req,res)=> {
     res.render('new.ejs')
 })
 
+//delete route
+
+//update toute
+
+//create route
+app.post('/flowers', (req,res)=> {
+    Product.create(req.body, (err,posted)=> {
+        if(err){
+            res.send('error')
+        }else{
+            res.redirect('/flowers')
+        }
+    })
+})
 
 //edit route
 app.get('/flowers/:id', (req,res) => {
@@ -53,7 +67,7 @@ app.get('/flowers/:id', (req,res)=> {
     })
 })
 
-
+//
 
 const PORT = process.env.PORT
 

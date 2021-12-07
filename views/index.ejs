@@ -9,7 +9,7 @@
 <body>
     <ul>
         <% flower.forEach((flower)=> {%>
-            <li><a href='/flowers/<%='flower._id%>'><%=flower.img%></a>
+            <li><a href='/flowers/<%=flower._id%>'><%=flower.img%></a>
                 <form action='/flowers/<%=flower._id%>?_method=delete' method='post'>
                     <button type="submit">delete</button>
                 </form>
