@@ -7,12 +7,17 @@
     <title>Document</title>
 </head>
 <body>
-    <h1><%=item.img%></h1>
+    <h1><img src="<%=item.img%>" alt="image"></h1>
     <p><%=item.title%></p>
     <p><%=item.description%></p>
     <p><%=item.qty%></p>
     <p><%=item.price%></p>
     
-    <a href="'/flowers">back</a>
+    <form action='/flowers/<%=item._id %>/buy' method="get">
+        <input <%= item.qty ? '' : 'disabled' %> type="submit" value="<%= item.qty ? 'Buy':'Out of Stock' %>">
+    </form>  
+
+    <a class='button' href='/flowers/<%=item._id%>/edit'>edit.</a>
+    <a class='button' href='/flowers'>return.</a>
 </body>
 </html>

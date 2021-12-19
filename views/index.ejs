@@ -9,11 +9,8 @@
 <body>
     <ul>
         <% flower.forEach((flower)=> {%>
-            <li><a href='/flowers/<%=flower._id%>'><%=flower.img%></a>
-                <form action='/flowers/<%=flower._id%>?_method=delete' method='post'>
-                    <button type="submit">delete</button>
-                </form>
-                <a href='/flowers/<%=flower._id%>/edit'>edit</a>
+            <li><a href='/flowers/<%=flower._id%>'><img src="<%=flower.img%>" alt="image"></a>
+                <a href='/flowers/<%=flower._id%>'><%=flower.title%></a>
             </li>
         <% }) %>
     </ul>

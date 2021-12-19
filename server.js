@@ -2,6 +2,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const Product = require('./models/products')
+const methodOverride = require('method-override')
 //intilaize app
 const app = express();
 
@@ -23,6 +24,52 @@ db.on('disconnected', () => console.log('mongo disconnected'))
 
 // mount middleware
 app.use(express.urlencoded({ extended: false}));
+app.use(methodOverride('_method'))
+app.use(express.static('public'))
+
+
+//seed 
+app.get('/flowers/seed',(req,res)=> {
+    const data =[
+        {
+            name:'Peony',
+            description: 'Pink and white varieties',
+            img: 'https://i.imgur.com/0nyRSLo.jpg',
+            price: '$4',
+            qty: '10',
+            
+        },
+        {
+            name:'Dahlias',
+            description: 'Locally grown, colors vary',
+            img: 'https://i.imgur.com/wd99Mwb.jpg',
+            price: '$3',
+            qty: '15',
+            
+        },
+        {
+            name:'Tubberrose',
+            description: 'String',
+            img: 'https://i.imgur.com/KWtYRPe.jpg',
+            price: '$3',
+            qty: '15',
+            
+        },
+        {
+            name:'Purple Boquet',
+            description:'pre-made seasonal boquets',
+            img:'https://i.imgur.com/5bnC54i.jpg',
+            price:'$25',
+            qty:'30',
+        }
+    ]
+    Product.deleteMany({}, (err,deleted)=> {
+        Product.create(data, (err,item)=>{
+            res.redirect('/flowers')
+        })
+    })
+})  
+
 
 //index route
 app.get('/flowers', (req,res) => {
@@ -66,9 +113,9 @@ app.post('/flowers', (req,res)=> {
 })
 
 //edit route
-app.get('/flowers/:id', (req,res) => {
+app.get('/flowers/:id/edit', (req,res)=> {
     Product.findById(req.params.id, (err,item) =>{
-        res.render('show.ejs', { item })
+        res.render('edit.ejs', { item })
     })
 })
 
@@ -77,6 +124,20 @@ app.get('/flowers/:id', (req,res) => {
 app.get('/flowers/:id', (req,res)=> {
     Product.findById(req.params.id,(err,item)=> {
         res.render('show.ejs', { item })
+    })
+})
+
+//buy 
+app.get('/flowers/:id/buy', (req,res)=> {
+    Product.findById(req.params.id, (err,item)=> {
+        if(item.qty){
+            item.qty--
+            item.save(()=>{
+                res.redirect(`/flowers/${item.id}`)
+            })
+        } else {
+            res.redirect(`/flowers/${item.id}`)
+        }
     })
 })
 

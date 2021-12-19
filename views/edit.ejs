@@ -10,10 +10,11 @@
     <form action="/flowers/<%=item._id%>?_method=PUT" method="POST">
         <input type='text' name='name'value='<%=item.name%>'>
         <input type='textarea' name='description'value='<%=item.description%>'>
-        <input type="file" id="img" name="img" accept="image/*"value='<%=item.img%>'>
+        <input class='img' type='string' name='img' value='<%=item.img%>'>
         <input type='number' name='price'value='<%=item.price%>'>
         <input type='number' name='qty'value='<%=item.qty%>'>
         <button type="submit">submit</button>
     </form>
+    <form action='/flowers/<%=item._id%>?_method=DELETE' method='POST'><button type="submit">delete</button></form>
 </body>
 </html>
